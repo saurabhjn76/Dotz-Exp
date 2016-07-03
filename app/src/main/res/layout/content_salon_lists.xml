@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:paddingTop="8dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.orca.dotz.activities.SalonLists"
+    tools:showIn="@layout/activity_salon_lists">
+
+
+    <com.pixplicity.multiviewpager.MultiViewPager
+        android:id="@+id/viewPagerSalonList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="90dp"
+        app:matchChildWidth="@+id/vg_cover" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/border_rectangular_choose_salon"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text=" GO WITH THIS SALON "
+        android:textColor="#fff" />
+</RelativeLayout>
