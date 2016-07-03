@@ -102,44 +102,7 @@ public class SalonLists extends AppCompatActivity {
 
 
     }
-
-    private void getSalonData(Set<String> commonElements) {
-        final List<String> salonList = new ArrayList<>();
-        salonList.addAll(commonElements);
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference salonData = firebaseDatabase.getReference("SalonData");
-        salonData.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot salon : dataSnapshot.getChildren()) {
-                        if (salonList.contains(salon.getKey())) {
-                            Log.d("Salons", salon.toString());
-                            Salon salonModel = salon.getValue(Salon.class);
-                            salonModel.setParent(salon.getKey());
-
-                            int totalPrice = 0;
-                            for (int i = 0; i < list.size(); i++) {
-                                totalPrice = totalPrice + list.get(i).get(salon.getKey()).intValue();
-                            }
-                            salonModel.setPrice(totalPrice);
-                            salonListData.add(salonModel);
-
-                        }
-                    }
-
-                    bindSalonDatatoUI();
-
-                } else throw new IllegalArgumentException("No data found on SalonData node");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
+    
 
     private void getSalonData(Set<String> commonElements) {
         final List<String> salonList = new ArrayList<>();
