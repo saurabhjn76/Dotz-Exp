@@ -1,4 +1,5 @@
 package com.orca.dotz.customviews;
+// color code-  background -#eoe4cc  red -eb2727 white -ffffff text -color-0d0d0d
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
