@@ -60,6 +60,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.orca.dotz.utils.DirectionsJSONParser;
+import com.orca.dotz.utils.GPSTracker;
 
 public class MapsActivity extends FragmentActivity {
 
@@ -68,12 +69,17 @@ public class MapsActivity extends FragmentActivity {
     TextView Duration;
     TextView navigation;
     TextView Distance;
+      double latitude,longitude;
+    LatLng Gurgaon,Neuz;
 
     //AIzaSyD1GMVfSV7rGKwSDktsSAIpKQWfzei_jOI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        GPSTracker gps = new GPSTracker(this);
+       latitude = gps.getLatitude();
+        longitude = gps.getLongitude();
 
         Duration = (TextView) findViewById(R.id.map_duration);
         navigation = (TextView) findViewById(R.id.map_navigation);
@@ -90,28 +96,20 @@ public class MapsActivity extends FragmentActivity {
 
         // Enable MyLocation Button in the Map
         //map.setMyLocationEnabled(true);
-        LatLng Gurgaon = new LatLng(28.4595, 77.0466);
+         Gurgaon = new LatLng(latitude, longitude);
         Marker gurgaon = map.addMarker(new MarkerOptions()
                 .position(Gurgaon).title("Current").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        LatLng Neuz = new LatLng(28.45568, 77.09760);
+         Neuz = new LatLng(28.45568, 77.09760);
         Marker neuz = map.addMarker(new MarkerOptions()
                 .position(Neuz).title("Neuz").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+
 
         // Setting onclick event listener for the map
 
         markerPoints.add(Gurgaon);
         // Already two locations
         markerPoints.add(Neuz);
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        builder.include(Gurgaon);
-        builder.include(Neuz);
-       final LatLngBounds bounds = builder.build();
-        map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-            @Override
-            public void onMapLoaded() {
-                map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 30));
-            }
-        });
+
       //  map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds,20));
         //map.moveCamera(CameraUpdateFactory.newLatLngZoom(Gurgaon,11.0f));
         navigation.setOnClickListener(new View.OnClickListener() {
@@ -273,6 +271,7 @@ public class MapsActivity extends FragmentActivity {
             MarkerOptions markerOptions = new MarkerOptions();
             String distance = "";
             String duration = "";
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
             if(result.size()<1){
                 Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
@@ -304,13 +303,25 @@ public class MapsActivity extends FragmentActivity {
                     LatLng position = new LatLng(lat, lng);
 
                     points.add(position);
+                    builder.include(position);
                 }
 
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
-                lineOptions.width(3);
-                lineOptions.color(Color.RED);
+                lineOptions.width(8);
+                lineOptions.color(Color.BLUE);
             }
+
+
+            builder.include(Gurgaon);
+            builder.include(Neuz);
+            final LatLngBounds bounds = builder.build();
+            map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+                }
+            });
 
             Distance.setText("Distance:"+distance );
             Duration.setText("Duration:"+duration);
