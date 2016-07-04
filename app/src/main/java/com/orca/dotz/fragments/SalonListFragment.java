@@ -1,11 +1,13 @@
 package com.orca.dotz.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,12 +41,20 @@ public class SalonListFragment extends Fragment {
 
         TextView salonName = (TextView) view.findViewById(R.id.name);
         TextView totalPrice = (TextView) view.findViewById(R.id.totalPrice);
-      //  TextView rating = (TextView) view.findViewById(R.id.rating);
+        TextView distance = (TextView) view.findViewById(R.id.distance);
         ImageView salonImage = (ImageView) view.findViewById(R.id.image);
+        Button selectSalon =(Button)view.findViewById(R.id.select_salon);
 
+        Typeface face = Typeface.createFromAsset(getActivity().getAssets(),
+                "fonts/quicksand/QuicksandBold.ttf");
+        salonName.setTypeface(face);
         salonName.setText(salonData.getName());
         //rating.setText(String.valueOf(salonData.getRating().floatValue()));
-        totalPrice.setText("Rs. " + salonData.getPrice() + "/-");
+        totalPrice.setText("₹" + salonData.getPrice());
+        totalPrice.setTypeface(face);
+        distance.setTypeface(face);
+        selectSalon.setTypeface(face);
+
         Glide.with(getContext()).load(salonData.getImage()).into(salonImage);
     }
 }
