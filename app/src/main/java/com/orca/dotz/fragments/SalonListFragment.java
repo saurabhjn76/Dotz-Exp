@@ -39,11 +39,11 @@ public class SalonListFragment extends Fragment {
 
         TextView salonName = (TextView) view.findViewById(R.id.name);
         TextView totalPrice = (TextView) view.findViewById(R.id.totalPrice);
-        TextView rating = (TextView) view.findViewById(R.id.rating);
+      //  TextView rating = (TextView) view.findViewById(R.id.rating);
         ImageView salonImage = (ImageView) view.findViewById(R.id.image);
 
         salonName.setText(salonData.getName());
-        rating.setText(String.valueOf(salonData.getRating().floatValue()));
+        //rating.setText(String.valueOf(salonData.getRating().floatValue()));
         totalPrice.setText("Rs. " + salonData.getPrice() + "/-");
         Glide.with(getContext()).load(salonData.getImage()).into(salonImage);
     }
