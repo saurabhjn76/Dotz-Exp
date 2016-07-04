@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.orca.dotz.R;
 import com.orca.dotz.customviews.ScaleOutPageTransformer;
+import com.orca.dotz.customviews.VerticalViewPager;
 import com.orca.dotz.fragments.SalonListFragment;
 import com.orca.dotz.model.Salon;
 import com.pixplicity.multiviewpager.MultiViewPager;
@@ -43,8 +44,8 @@ public class SalonLists extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_salon_lists);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         cartArray.add("0");
         cartArray.add("1");
@@ -72,7 +73,7 @@ public class SalonLists extends AppCompatActivity {
                                 List<String> tempArrayList = new ArrayList<String>();
                                 for (DataSnapshot children : styleNodes.getChildren()) {
                                     tempArrayList.add(children.getKey());
-                                    // Log.d("child", children.toString());
+                                    //Log.d("child", children.toString());
                                     list.get(i).put(children.getKey(), (Long) children.getValue());
                                 }
                                 listTofilterList.add(tempArrayList);
@@ -160,10 +161,10 @@ public class SalonLists extends AppCompatActivity {
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
         int pxMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics());
 
-        MultiViewPager viewPager = (MultiViewPager) findViewById(R.id.viewPagerSalonList);
+       VerticalViewPager viewPager = (VerticalViewPager) findViewById(R.id.viewPagerSalonList);
         mPagerAdapter = new SalonPagerAdapter(getSupportFragmentManager());
         // viewPager.setClipToPadding(false);
-        viewPager.setPageTransformer(true, new ScaleOutPageTransformer());
+       // viewPager.setPageTransformer(true, new ScaleOutPageTransformer());
         // viewPager.setPadding(px, 0, px, 0);
         //  viewPager.setOffscreenPageLimit(3);
         //viewPager.setPageMargin(pxMargin);

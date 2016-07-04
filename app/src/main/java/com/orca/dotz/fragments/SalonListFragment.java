@@ -1,5 +1,6 @@
 package com.orca.dotz.fragments;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orca.dotz.MapsActivity;
 import com.orca.dotz.R;
 import com.orca.dotz.model.Salon;
 
@@ -53,6 +55,13 @@ public class SalonListFragment extends Fragment {
         totalPrice.setText("₹" + salonData.getPrice());
         totalPrice.setTypeface(face);
         distance.setTypeface(face);
+        distance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MapsActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
         selectSalon.setTypeface(face);
 
         Glide.with(getContext()).load(salonData.getImage()).into(salonImage);
