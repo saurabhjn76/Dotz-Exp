@@ -102,7 +102,7 @@ public class SalonLists extends AppCompatActivity {
 
 
     }
-    
+
 
     private void getSalonData(Set<String> commonElements) {
         final List<String> salonList = new ArrayList<>();
