@@ -9,12 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.orca.dotz.R;
 import com.orca.dotz.customviews.ScaleOutPageTransformer;
 import com.orca.dotz.customviews.VerticalViewPager;
@@ -46,6 +49,13 @@ public class SalonLists extends AppCompatActivity {
         setContentView(R.layout.activity_salon_lists);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+        FirebaseMessaging.getInstance().subscribeToTopic("test");
+        String token=FirebaseInstanceId.getInstance().getToken();
+        Toast.makeText(getApplicationContext(),token,Toast.LENGTH_LONG).show();
+        Log.e("firebase","Token: "+ token);
+       // Toast.makeText(getApplicationContext(),"Hello",Toast.LENGTH_SHORT).show();
+
+
 
         cartArray.add("0");
         cartArray.add("1");
