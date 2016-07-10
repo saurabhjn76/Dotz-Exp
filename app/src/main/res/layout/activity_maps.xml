@@ -3,11 +3,9 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/border_rectangular"
-    android:padding="3dp"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
-    android:theme="@style/Theme.UserDialog"
+    android:layout_marginTop="-30dp"
+    android:layout_height="400dp"
 
     tools:context="com.orca.dotz.MapsActivity">
     <LinearLayout
@@ -17,48 +15,73 @@
         android:background="#ffffff"
         android:layout_alignParentBottom="true"
         android:layout_height="40dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_rectangular">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2dp"
+            android:src="@drawable/car"/>
         <TextView
             android:id="@+id/map_duration"
-            android:layout_width="100dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:textSize="13sp"
+            android:layout_marginLeft="10dp"
             android:textColor="#000000"
             android:paddingTop="4dp"
             android:layout_gravity="center"
             android:text="Duration"
             />
+        </LinearLayout>
         <View
             android:layout_width="2px"
             android:layout_height="40dp"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:background="#000000"/>
+            android:background="#FFFFFF"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/map_navigation"
+            android:paddingLeft="20dp"
+            android:elevation="10dp"
+            android:textColor="#000000"
+            android:background="@drawable/border_rectangular"
+            android:src="@drawable/navigation"
+
+            />
+        <View
+            android:layout_width="3px"
+            android:layout_height="40dp"
+            android:paddingLeft="40dp"
+            android:background="#FFFFFF"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_rectangular"
+            >
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/distance"/>
         <TextView
-            android:layout_width="110dp"
+            android:layout_width="65dp"
             android:layout_height="match_parent"
             android:textSize="12sp"
-            android:gravity="right"
+            android:gravity="left"
+            android:layout_marginLeft="5dp"
             android:paddingTop="4dp"
-            android:layout_gravity="right"
+            android:layout_gravity="left"
             android:paddingRight="20dp"
             android:textColor="#000000"
             android:id="@+id/map_distance"
             android:text="Distance"
             />
+        </LinearLayout>
 
-        <View
-            android:layout_width="2px"
-            android:layout_height="40dp"
-            android:paddingLeft="40dp"
-            android:background="#000000"/>
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:textSize="13sp"
-            android:id="@+id/map_navigation"
-            android:paddingLeft="20dp"
-            android:textColor="#000000"
-            android:text="Navigation"
-            />
+
     </LinearLayout>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -69,6 +92,8 @@
         android:layout_above="@id/map_toolbar"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         tools:context="com.orca.dotz.MapsActivity"
+        android:background="@drawable/border_rectangular"
+        android:layout_margin="2dp"
         />
 
 

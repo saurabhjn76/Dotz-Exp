@@ -2,15 +2,19 @@ package com.orca.dotz;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -67,7 +71,7 @@ public class MapsActivity extends FragmentActivity {
     GoogleMap map;
     ArrayList<LatLng> markerPoints;
     TextView Duration;
-    TextView navigation;
+    ImageView navigation;
     TextView Distance;
       double latitude,longitude;
     LatLng Gurgaon,Neuz;
@@ -82,7 +86,7 @@ public class MapsActivity extends FragmentActivity {
         longitude = gps.getLongitude();
 
         Duration = (TextView) findViewById(R.id.map_duration);
-        navigation = (TextView) findViewById(R.id.map_navigation);
+        navigation = (ImageView) findViewById(R.id.map_navigation);
         Distance = (TextView) findViewById(R.id.map_distance);
 
         // Initializing
@@ -98,11 +102,10 @@ public class MapsActivity extends FragmentActivity {
         //map.setMyLocationEnabled(true);
          Gurgaon = new LatLng(latitude, longitude);
         Marker gurgaon = map.addMarker(new MarkerOptions()
-                .position(Gurgaon).title("Current").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                .position(Gurgaon).title("Current"));
          Neuz = new LatLng(28.45568, 77.09760);
         Marker neuz = map.addMarker(new MarkerOptions()
-                .position(Neuz).title("Neuz").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-
+                .position(Neuz).title("Neuz").icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("sallon",90,90))));
 
         // Setting onclick event listener for the map
 
@@ -208,6 +211,11 @@ public class MapsActivity extends FragmentActivity {
         }
         return data;
     }
+    public Bitmap resizeMapIcons(String iconName,int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+        return resizedBitmap;
+    }
 
     // Fetches data from url passed
     private class DownloadTask extends AsyncTask<String, Void, String>{
@@ -268,6 +276,8 @@ public class MapsActivity extends FragmentActivity {
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
             ArrayList<LatLng> points = null;
             PolylineOptions lineOptions = null;
+            PolylineOptions borderlineOptions = null;
+
             MarkerOptions markerOptions = new MarkerOptions();
             String distance = "";
             String duration = "";
@@ -282,6 +292,7 @@ public class MapsActivity extends FragmentActivity {
             for(int i=0;i<result.size();i++){
                 points = new ArrayList<LatLng>();
                 lineOptions = new PolylineOptions();
+                borderlineOptions= new PolylineOptions();
 
                 // Fetching i-th route
                 List<HashMap<String, String>> path = result.get(i);
@@ -308,8 +319,11 @@ public class MapsActivity extends FragmentActivity {
 
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
-                lineOptions.width(8);
-                lineOptions.color(Color.BLUE);
+                borderlineOptions.addAll(points);
+                borderlineOptions.width(16);
+                lineOptions.width(10);
+                borderlineOptions.color(Color.BLUE);
+                lineOptions.color(Color.RED);
             }
 
 
@@ -323,10 +337,11 @@ public class MapsActivity extends FragmentActivity {
                 }
             });
 
-            Distance.setText("Distance:"+distance );
-            Duration.setText("Duration:"+duration);
+            Distance.setText(distance );
+            Duration.setText(duration);
 
             // Drawing polyline in the Google Map for the i-th route
+            map.addPolyline(borderlineOptions);
             map.addPolyline(lineOptions);
         }
     }
