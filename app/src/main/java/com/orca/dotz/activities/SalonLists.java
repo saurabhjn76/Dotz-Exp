@@ -83,7 +83,7 @@ public class SalonLists extends AppCompatActivity {
                                 List<String> tempArrayList = new ArrayList<String>();
                                 for (DataSnapshot children : styleNodes.getChildren()) {
                                     tempArrayList.add(children.getKey());
-                                    //Log.d("child", children.toString());
+                                    Log.d("child", children.toString());
                                     list.get(i).put(children.getKey(), (Long) children.getValue());
                                 }
                                 listTofilterList.add(tempArrayList);
@@ -126,12 +126,12 @@ public class SalonLists extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot salon : dataSnapshot.getChildren()) {
                         if (salonList.contains(salon.getKey())) {
-                            Log.d("Salons", salon.toString());
                             Salon salonModel = salon.getValue(Salon.class);
                             salonModel.setParent(salon.getKey());
 
                             int totalPrice = 0;
                             for (int i = 0; i < list.size(); i++) {
+                                Log.d("List",salon.getKey().toString());
                                 totalPrice = totalPrice + list.get(i).get(salon.getKey()).intValue();
                             }
                             salonModel.setPrice(totalPrice);
@@ -197,6 +197,10 @@ public class SalonLists extends AppCompatActivity {
         }
 
 
+    }
+    public HashMap<String, Long> getPriceList(int position)
+    {
+        return list.get(position);
     }
 
 }

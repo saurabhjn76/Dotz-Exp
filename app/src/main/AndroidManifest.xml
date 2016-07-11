@@ -11,6 +11,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".AppApplication"
@@ -25,17 +28,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LoginSignUpActivity"
-            android:theme="@style/AppTheme.NoActionBar.Login">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar.Login" />
         <activity
             android:name=".activities.SalonList"
             android:label="@string/title_activity_salon_list"
-            android:theme="@style/AppTheme.NoActionBar">
-
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.UserProfile"
             android:label="@string/title_activity_user_profile"
@@ -70,28 +67,37 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:theme="@style/Theme.UserDialog"></activity>
+            android:theme="@style/Theme.UserDialog" />
         <activity
             android:name=".activities.Cart"
             android:label="@string/title_activity_cart"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- [START firebase_service] -->
-        <service
-            android:name=".MyFirebaseMessagingService">
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <!-- [END firebase_service] -->
         <!-- [START firebase_iid_service] -->
-        <service
-            android:name=".MyFirebaseInstanceIDService">
+        <service android:name=".MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <!-- [END firebase_iid_service] -->
+        <activity android:name=".PriceActivity" />
+        <activity android:name=".SalonProfile"></activity>
+        <!-- Register the Alarm Receiver -->
+        <receiver android:name=".AlarmReciever"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            </receiver>
     </application>
+
 
 </manifest>

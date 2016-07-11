@@ -4,8 +4,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginTop="-30dp"
-    android:layout_height="400dp"
+    android:padding="1dp"
+    android:layout_height="500dp"
 
     tools:context="com.orca.dotz.MapsActivity">
     <LinearLayout
