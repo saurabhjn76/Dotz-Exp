@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
+import com.orca.dotz.activities.SalonLists;
 /**
  * Created by saurabh on 21/6/16.
  */
@@ -94,7 +94,7 @@ public class VerticalViewPager extends ViewPager {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev){
         boolean intercepted = super.onInterceptTouchEvent(swapXY(ev));
-        swapXY(ev); // return touch coordinates to original reference frame for any child views
+        swapXY(ev);// return touch coordinates to original reference frame for any child views
         return intercepted;
     }
 

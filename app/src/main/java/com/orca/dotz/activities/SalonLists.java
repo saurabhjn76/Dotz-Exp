@@ -1,14 +1,23 @@
 package com.orca.dotz.activities;
 
 
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Window;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -47,11 +56,14 @@ public class SalonLists extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_salon_lists);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" +"Select Salon" + "</font>"));
+      //  this.requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00000000")));
         FirebaseMessaging.getInstance().subscribeToTopic("test");
         String token=FirebaseInstanceId.getInstance().getToken();
-        Toast.makeText(getApplicationContext(),token,Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),token,Toast.LENGTH_LONG).show();
         Log.e("firebase","Token: "+ token);
        // Toast.makeText(getApplicationContext(),"Hello",Toast.LENGTH_SHORT).show();
 
@@ -141,6 +153,7 @@ public class SalonLists extends AppCompatActivity {
                     }
 
                     bindSalonDatatoUI();
+                    getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" +salonListData.get(0).getName() + "</font>"));
 
                 } else throw new IllegalArgumentException("No data found on SalonData node");
             }
@@ -172,6 +185,8 @@ public class SalonLists extends AppCompatActivity {
         int pxMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics());
 
        VerticalViewPager viewPager = (VerticalViewPager) findViewById(R.id.viewPagerSalonList);
+        final Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
+
         mPagerAdapter = new SalonPagerAdapter(getSupportFragmentManager());
         // viewPager.setClipToPadding(false);
        // viewPager.setPageTransformer(true, new ScaleOutPageTransformer());
@@ -179,9 +194,27 @@ public class SalonLists extends AppCompatActivity {
         //  viewPager.setOffscreenPageLimit(3);
         //viewPager.setPageMargin(pxMargin);
         viewPager.setAdapter(mPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //Toast.makeText(getApplicationContext(),"dfdsfsd",Toast.LENGTH_LONG).show();
+                getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" +salonListData.get(position).getName() + "</font>"));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+
+        });
     }
 
-    private class SalonPagerAdapter extends FragmentStatePagerAdapter {
+    private class SalonPagerAdapter extends FragmentStatePagerAdapter  {
         public SalonPagerAdapter(FragmentManager fm) {
             super(fm);
         }
