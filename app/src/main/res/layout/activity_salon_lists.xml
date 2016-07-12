@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     android:background="#eeeeee"
     android:fitsSystemWindows="true"
+    android:animateLayoutChanges="true"
     tools:context="com.orca.dotz.activities.SalonLists">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
